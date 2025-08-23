@@ -1,0 +1,38 @@
+{
+  "name": "whatsapp-api",
+  "version": "1.0.0",
+  "description": "API para envio de mensagens para grupos do WhatsApp com autenticação via Telegram",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.7.13",
+    "axios": "^1.8.1",
+    "cheerio": "^1.0.0",
+    "chromedriver": "^138.0.5",
+    "express": "^4.19.2",
+    "jimp": "^0.16.13",
+    "multer": "^1.4.5-lts.1",
+    "p-queue": "^7.3.0",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
+    "playwright": "^1.54.2",
+    "proper-lockfile": "^4.1.2",
+    "qrcode": "^1.5.4",
+    "qrcode-terminal": "^0.12.0",
+    "sharp": "^0.32.6",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "telegraf": "^4.16.3",
+    "uuid": "^9.0.1",
+    "venom-bot": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "author": "Seu Nome",
+  "license": "MIT"
+}

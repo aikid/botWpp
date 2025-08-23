@@ -1,0 +1,10 @@
+.node-persist
+node_modules
+SessionsWhats
+bot.log
+fila.db
+.env
+media
+ms-playwright
+
+
