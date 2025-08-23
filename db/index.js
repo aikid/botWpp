@@ -8,9 +8,11 @@ const __dirname = path.dirname(__filename);
 
 const dbPath = path.join(__dirname, 'fila.db');
 
-export async function connect() {
+async function connect() {
     return open({
         filename: dbPath,
         driver: sqlite3.Database
     });
 }
+
+export { connect };

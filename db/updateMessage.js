@@ -1,6 +1,6 @@
-import { connect } from './index.js';
+import { connect } from '../db';
 
-export async function updateFila(id, data) {
+async function updateFila(id, data) {
     const db = await connect();
 
     const fields = Object.keys(data);
@@ -18,3 +18,5 @@ export async function updateFila(id, data) {
     await db.close();
     return { status: "success", msg: `Registro ${id} atualizado com sucesso!` };
 }
+
+export { updateFila };

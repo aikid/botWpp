@@ -1,6 +1,6 @@
-import { connect } from './index.js';
+import { connect } from '../db';
 
-export async function createTable() {
+async function createTable() {
     const db = await connect();
     await db.exec(`
         CREATE TABLE IF NOT EXISTS filas (
@@ -20,3 +20,5 @@ export async function createTable() {
 
     return { status: "success", msg: "Banco de dados criado com sucesso!" };
 }
+
+export { createTable };
