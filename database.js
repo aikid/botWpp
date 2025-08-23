@@ -57,7 +57,7 @@ export async function messageList() {
 
 export async function path_image_in_use(path) {
     const db = await connect();
-    const rows = await db.all('SELECT * FROM filas WHERE path_image = ?', [path]);
+    const rows = await db.all('SELECT * FROM filas WHERE path_image = ? and (wasSent = 1 OR (wasSent = 0 AND attempt < 10))', [path]);
     await db.close();
     return rows;
 }
