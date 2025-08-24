@@ -1,38 +1,44 @@
 {
   "name": "whatsapp-api",
   "version": "1.0.0",
-  "description": "API para envio de mensagens para grupos do WhatsApp com autenticação via Telegram",
-  "main": "index.js",
+  "description": "API para envio de mensagens para grupos do WhatsApp com autenticação na pŕopria Whapi",
+  "main": "src/index.js",
+  "keywords": [
+    "WHATSAPP-API",
+    "WHATSAPP",
+    "API",
+    "INTEGRAÇAO",
+    "DISPAROS"
+  ],
+  "author": "DEVs Leandro Brito, Leonardo Avalone, Thales Vargas",
+  "license": "ISC",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "babel src -d dist",
+    "dist": "node dist/index.js"
   },
   "dependencies": {
-    "@hapi/boom": "^10.0.1",
-    "@whiskeysockets/baileys": "^6.7.13",
-    "axios": "^1.8.1",
-    "cheerio": "^1.0.0",
-    "chromedriver": "^138.0.5",
-    "express": "^4.19.2",
-    "jimp": "^0.16.13",
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.21.5",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-async-to-generator": "^7.20.7",
+    "@babel/preset-env": "^7.21.5",
+    "axios": "^1.11.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mime-types": "^3.0.1",
     "multer": "^1.4.5-lts.1",
-    "p-queue": "^7.3.0",
+    "mysql2": "^3.3.1",
+    "node-cron": "^3.0.2",
+    "nodemon": "^1.14.9",
     "pino": "^9.6.0",
     "pino-pretty": "^13.0.0",
-    "playwright": "^1.54.2",
-    "proper-lockfile": "^4.1.2",
-    "qrcode": "^1.5.4",
-    "qrcode-terminal": "^0.12.0",
-    "sharp": "^0.32.6",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7",
-    "telegraf": "^4.16.3",
-    "uuid": "^9.0.1",
-    "venom-bot": "^5.3.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.4"
-  },
-  "author": "Seu Nome",
-  "license": "MIT"
+    "sqlite3": "^5.1.6",
+    "telegraf": "^4.16.3"
+  }
 }

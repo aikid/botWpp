@@ -1,4 +1,4 @@
-export const boundSessionById = (arrSessions, arrGroupID) => {
+const boundSessionById = (arrSessions, arrGroupID) => {
     let idsDisponiveis = [...arrGroupID];
     let mapper = [];
 
@@ -15,3 +15,5 @@ export const boundSessionById = (arrSessions, arrGroupID) => {
 
     return mapper;
 }
+
+export default boundSessionById;
