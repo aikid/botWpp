@@ -14,8 +14,12 @@ import boundSessionById from './utils/boundSessionById';
 
 import bot from './botTelegram';
 
+import processMessages from './emitter';
 // Configuração do Express
+
 const app = express();
+
+processMessages();
 
 // Middleware para parsing de JSON
 app.use(express.json());
