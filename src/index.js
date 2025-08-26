@@ -19,8 +19,6 @@ import processMessages from './utils/emitter';
 
 const app = express();
 
-processMessages();
-
 // Middleware para parsing de JSON
 app.use(express.json());
 
@@ -80,13 +78,10 @@ app.put('webhook/statuses', async (req, res) => {
   );
 });
 
-// Iniciar Bot telegram
-bot.launch().then(() => logger.info('Bot iniciado!'));
-
 // Iniciar o servidor Express
-app.listen(port, () => {
+app.listen(port, async () => {
   logger.info(`Servidor Express rodando na porta ${port}`);
-  createTables().then( res => {
+  await createTables().then( res => {
       if (res.status == "success"){
         logger.info(res.msg);
       }
@@ -94,4 +89,10 @@ app.listen(port, () => {
     .catch( err => {
       logger.error(`Erro ao iniciar Base: ${err.message}`);
     });
+  
+  processMessages();
+
+  // Iniciar Bot telegram
+  bot.launch().then(() => logger.info('Bot iniciado!'));
+
 });
