@@ -45,7 +45,7 @@ const send = async (messages, callback) => {
     callback();
 }
 
-export const processMessages = async() => {
+const processMessages = async() => {
   try {
     const messages = await messagesList();
     const tokens = Array.from(new Set(messages.map(m => m.token)));
@@ -63,3 +63,5 @@ export const processMessages = async() => {
     setTimeout(processMessages, 2000);
   }
 }
+
+export default processMessages;

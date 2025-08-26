@@ -6,5 +6,5 @@ fila.db
 .env
 media
 ms-playwright
-
+dist
 

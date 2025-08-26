@@ -14,7 +14,7 @@ import boundSessionById from './utils/boundSessionById';
 
 import bot from './botTelegram';
 
-import processMessages from './emitter';
+import processMessages from './utils/emitter';
 // Configuração do Express
 
 const app = express();
