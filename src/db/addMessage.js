@@ -1,9 +1,9 @@
 import { insert } from '../db';
 
-async function addMessage(message, pathImage, imageOriginalName, pattern) {
+async function addMessage(message, pathImage, imageOriginalName, groupId) {
 
     return insert('messages',{
-        message, pathImage, imageOriginalName, pattern
+        message, pathImage, imageOriginalName, groupId
     })    
     
 }
