@@ -30,5 +30,6 @@ export {
     __dirname,
     dbPath,
     upload,
-    TELEGRAM_TOKEN
+    TELEGRAM_TOKEN,
+    uploadsDir
 }
