@@ -13,7 +13,7 @@ function randomDelay(min = 5000, max = 9000) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const send = async (messages, callback) => {
+const send = async (messages) => {
     for (const msg of messages) {
       try {
         const result = await sendMessage(msg.token, msg.groupId, msg.pathImage, msg.message);
@@ -42,25 +42,32 @@ const send = async (messages, callback) => {
       }
       await new Promise(resolve => setTimeout(resolve, randomDelay()));
     }
-    callback();
 }
 
+var timeout = 5000;
+
 const processMessages = async() => {
+
   try {
     const messages = await messagesList();
-    const tokens = Array.from(new Set(messages.map(m => m.token)));
-    const tokensSends = Array.from(new Set(messages.map(m => false)));
-    for(const token of tokens){
-        const msgsByToken = messages.filter(m => m.token === token);
-        send(msgsByToken, () => {tokensSends[token] = true});
-    }
-    while(tokensSends.includes(false)){
-        await new Promise(resolve => setTimeout(resolve, 180000));
-    }
+
+    timeout = (!messages.length) ? Math.min(timeout * 1.5, 180000) : 5000;
+
+    // Agrupa por token
+    const grouped = messages.reduce((acc, msg) => {
+      acc[msg.token] = acc[msg.token] || [];
+      acc[msg.token].push(msg);
+      return acc;
+    }, {});
+
+    const promises = Object.values(grouped).map(msgs => send(msgs));
+
+    await Promise.all(promises);
+
   } catch (err) {
     logger.error(`Erro no emitter: ${err.message}`);
   } finally {
-    setTimeout(processMessages, 2000);
+    setTimeout(processMessages, timeout);
   }
 }
 
