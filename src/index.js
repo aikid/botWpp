@@ -45,8 +45,13 @@ app.post('/send-groups', upload.single('image'), async (req, res) => {
         fs.renameSync(image.path, newPath);
 
         //Buscar Sessions 
-        const arrSessions = (await getAllTokens()).map((row) => row.token);
-        const firstToken = '4L3PBH9GtJmg0xhO5PQefV23l4n0hUWR';//arrSessions[0];
+        const arrSessions = await getAllTokens();
+        const firstToken = arrSessions[0].token;
+
+        if (!arrSessions.length){
+          logger.warn(`Nenhuma Sessão cadastrada para realizar envios!`);
+          return res.status(400).json({ success: false, msg: "Nenhuma Sessão cadastrada para realizar envios!" });
+        }
 
         logger.info(`Qtd Sessions: ${arrSessions.length}`);
 
@@ -55,13 +60,17 @@ app.post('/send-groups', upload.single('image'), async (req, res) => {
         
         logger.info(`Qtd Groups: ${arrGroupID.length}`);
 
+        if (!arrGroupID.length){
+          logger.warn(`Nenhuma grupo para regex ${pattern}`);
+          return res.status(400).json({ success: false, msg: `Nenhuma grupo para regex ${pattern}` });
+        }
+
         //Distribui grupos para sessions 
-        const mapper = await boundSessionById(arrSessions, arrGroupID);
+        const mapper = await boundSessionById(arrSessions.map(row => row.id), arrGroupID);
 
         for ( const row of mapper){
             const sessionId = row[0];
             const groupId = row[1];
-            logger.info(`Session ${sessionId} send to ${groupId}`);
             await addMessage(sessionId, groupId, message, newPath, image.originalname);
         }
     }
