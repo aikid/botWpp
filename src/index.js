@@ -1,6 +1,7 @@
 import express from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
-import { __dirname, port, path, fs, upload } from "./config";
+import { __dirname, port, path, fs, upload, uploadsDir } from "./config";
 import { logger } from "./logger";
 
 import addMessage from './db/addMessage';
@@ -44,7 +45,7 @@ app.post('/send-groups', upload.single('image'), async (req, res) => {
         fs.renameSync(image.path, newPath);
 
         //Buscar Sessions 
-        const arrSessions = await getAllTokens();
+        const arrSessions = (await getAllTokens()).map((row) => row.token);
         const firstToken = arrSessions[0];
 
         //Buscar Grupos para disparo
