@@ -1,6 +1,4 @@
 import axios from "axios";
-import fs from "fs/promises";
-import mime from "mime-types";
 
 const get = async (token) => {
     
