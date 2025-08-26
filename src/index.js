@@ -91,8 +91,13 @@ app.listen(port, async () => {
     });
   
   processMessages();
-
+  
   // Iniciar Bot telegram
-  bot.launch().then(() => logger.info('Bot iniciado!'));
-
+  try {
+    await bot.launch(
+      () => logger.info('Bot iniciado!')
+    );
+  } catch (err) {
+    logger.warn('Bot OFF, verifique o TELEGRAM_TOKEN');
+  }
 });
