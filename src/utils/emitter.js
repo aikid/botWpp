@@ -16,23 +16,23 @@ function randomDelay(min = 5000, max = 9000) {
 const send = async (messages, callback) => {
     for (const msg of messages) {
       try {
-        const result = await sendMessage(msg.token, msg.group_id, msg.image_path, msg.message);
+        const result = await sendMessage(msg.token, msg.groupId, msg.pathImage, msg.message);
 
         await updateMessageStatus(msg.id, {
           sent: result.sent,
           sentId: result.id || null
         });
 
-        logger.info(`Mensagem enviada para grupo ${msg.group_id} pela sessão ${msg.token}`);
+        logger.info(`Mensagem enviada para grupo ${msg.groupId} pela sessão ${msg.token}`);
         
       } catch (err) {
-        logger.error(`Erro ao enviar mensagem para grupo ${msg.group_id}: ${err.message}`);
+        logger.error(`Erro ao enviar mensagem para grupo ${msg.groupId}: ${err.message}`);
       }
 
-      const list_image_in_use = await pathImageInUse(path_image);
+      const list_image_in_use = await pathImageInUse(msg.pathImage);
 
-      if (path_image && list_image_in_use.length === 0) {
-          const fullPath = path.resolve(path_image);
+      if (msg.pathImage && list_image_in_use.length === 0) {
+          const fullPath = path.resolve(msg.pathImage);
           try {
               await fs.unlink(fullPath);
               logger.info(`🗑️ Imagem ${fullPath} removida`);
