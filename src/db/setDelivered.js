@@ -1,4 +1,4 @@
-import { connect, update, insert } from '.';
+import { connect, update, insert } from '../db';
 
 async function set(sentId) {
     const db = await connect();

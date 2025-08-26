@@ -1,3 +1,5 @@
+import { connect } from '../db';
+
 async function pathImageInUse(path) {
     const db = await connect();
     const rows = await db.all(

@@ -1,4 +1,4 @@
-import { connect } from '.';
+import { connect } from '../db';
 
 async function createTable() {
     const db = await connect();
