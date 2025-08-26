@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
 
-const __filename = process.cwd();
+const __filename = process.env.BASE_PATH || process.cwd();
 
 const port = process.env.PORT || 3000;
 
@@ -21,7 +21,7 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // Limite de 10MB para arquivos
 });
 
-const TELEGRAM_TOKEN = '7670764917:AAHb-qogu40Yy-30IGYgh2y9GKr9jH24U-4' //process.env.TELEGRAM_TOKEN;
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 
 export {
     path, 
