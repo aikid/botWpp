@@ -1,11 +1,10 @@
 import { insert } from '../db';
 
-async function addMessage(message, pathImage, imageOriginalName, groupId) {
+async function addMessage(sessionId, groupId, message, pathImage, imageOriginalName) {
 
     return insert('messages',{
-        message, pathImage, imageOriginalName, groupId
+        sessionId, groupId, message, pathImage, imageOriginalName
     })    
     
 }
-
 export default addMessage;

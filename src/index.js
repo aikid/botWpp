@@ -46,7 +46,7 @@ app.post('/send-groups', upload.single('image'), async (req, res) => {
 
         //Buscar Sessions 
         const arrSessions = (await getAllTokens()).map((row) => row.token);
-        const firstToken = arrSessions[0];
+        const firstToken = '4L3PBH9GtJmg0xhO5PQefV23l4n0hUWR';//arrSessions[0];
 
         logger.info(`Qtd Sessions: ${arrSessions.length}`);
 
@@ -61,7 +61,7 @@ app.post('/send-groups', upload.single('image'), async (req, res) => {
         for ( const row of mapper){
             const sessionId = row[0];
             const groupId = row[1];
-
+            logger.info(`Session ${sessionId} send to ${groupId}`);
             await addMessage(sessionId, groupId, message, newPath, image.originalname);
         }
     }
