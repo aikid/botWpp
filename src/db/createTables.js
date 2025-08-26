@@ -7,7 +7,7 @@ async function createTable() {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             token VARCHAR(70) NOT NULL,
             name VARCHAR(70) NOT NULL,
-            about TEXT NOT NULL,
+            about TEXT NULL,
             icon VARCHAR(255) NOT NULL,
             createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
             updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
