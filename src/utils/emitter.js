@@ -1,6 +1,12 @@
+import path from 'path';
+import fs from 'fs/promises';
+
 import messagesList from '../db/messageList';
-import sendMessage from '../whapi/sendMediaImageMessage'
 import updateMessageStatus from '../db/updateMessage';
+import pathImageInUse from '../db//pathImageInUse';
+
+import sendMessage from '../whapi/sendMediaImageMessage'
+
 import { logger } from '../logger/index';
 
 function randomDelay(min = 5000, max = 9000) {
@@ -18,8 +24,21 @@ const send = async (messages, callback) => {
         });
 
         logger.info(`Mensagem enviada para grupo ${msg.group_id} pela sessão ${msg.token}`);
+        
       } catch (err) {
         logger.error(`Erro ao enviar mensagem para grupo ${msg.group_id}: ${err.message}`);
+      }
+
+      const list_image_in_use = await pathImageInUse(path_image);
+
+      if (path_image && list_image_in_use.length === 0) {
+          const fullPath = path.resolve(path_image);
+          try {
+              await fs.unlink(fullPath);
+              logger.info(`🗑️ Imagem ${fullPath} removida`);
+          } catch (err) {
+              logger.info(`⚠️ Imagem ${fullPath} não encontrada ou erro ao remover`);
+          }
       }
       await new Promise(resolve => setTimeout(resolve, randomDelay()));
     }
