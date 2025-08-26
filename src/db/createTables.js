@@ -18,7 +18,7 @@ async function createTable() {
             groupId VARCHAR(70),
             message TEXT,
             pathImage TEXT,
-            image_original_name TEXT,
+            imageOriginalName TEXT,
             attempt INTEGER DEFAULT 0,
             wasSent INTEGER DEFAULT 0,
             sentId VARCHAR(255) DEFAULT NULL,
