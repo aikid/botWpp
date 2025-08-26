@@ -48,9 +48,13 @@ app.post('/send-groups', upload.single('image'), async (req, res) => {
         const arrSessions = (await getAllTokens()).map((row) => row.token);
         const firstToken = arrSessions[0];
 
+        logger.info(`Qtd Sessions: ${arrSessions.length}`);
+
         //Buscar Grupos para disparo
         const arrGroupID = await getGroupsByPatternName(firstToken, pattern);
         
+        logger.info(`Qtd Groups: ${arrGroupID.length}`);
+
         //Distribui grupos para sessions 
         const mapper = await boundSessionById(arrSessions, arrGroupID);
 
