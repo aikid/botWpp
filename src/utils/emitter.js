@@ -9,21 +9,27 @@ import sendMessage from '../whapi/sendMediaImageMessage'
 
 import { logger } from '../logger/index';
 
-function randomDelay(min = 5000, max = 9000) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import { delayMin, delayMax } from "../config";
+
+import randomDelay from './randomDelay';
 
 const send = async (messages) => {
     for (const msg of messages) {
       try {
         const result = await sendMessage(msg.token, msg.groupId, msg.pathImage, msg.message);
 
-        await updateMessageStatus(msg.id, {
-          sent: result.sent,
-          sentId: result.id || null
-        });
+        if (result.success) {
+          await updateMessageStatus(msg.id, {
+            sent: result.sent,
+            sentId: result.id
+          });
 
-        logger.info(`Mensagem enviada para grupo ${msg.groupId} pela sessão ${msg.token}`);
+          logger.info(`Mensagem enviada para grupo ${msg.groupId} pela sessão ${msg.token}`);
+
+        } else {
+          logger.warn(`Mensagem não enviada para grupo ${msg.groupId} pela sessão ${msg.token}, REALOCANDO para o final!`);
+
+        }
         
       } catch (err) {
         logger.error(`Erro ao enviar mensagem para grupo ${msg.groupId}: ${err.message}`);
@@ -40,7 +46,7 @@ const send = async (messages) => {
               logger.info(`⚠️ Imagem ${fullPath} não encontrada ou erro ao remover`);
           }
       }
-      await new Promise(resolve => setTimeout(resolve, randomDelay()));
+      await new Promise(resolve => setTimeout(resolve, randomDelay(delayMin, delayMax)));
     }
 }
 

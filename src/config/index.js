@@ -6,6 +6,9 @@ const __filename = process.env.BASE_PATH || process.cwd();
 
 const port = process.env.PORT || 3000;
 
+const delayMin = process.env.DELAY_MIN || 5000;
+const delayMax = process.env.DELAY_MAX || 9000;
+
 //Diretorio /src
 const __dirname = path.dirname(__filename);
 
@@ -31,5 +34,7 @@ export {
     dbPath,
     upload,
     TELEGRAM_TOKEN,
-    uploadsDir
+    uploadsDir,
+    delayMin,
+    delayMax
 }

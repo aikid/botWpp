@@ -21,7 +21,8 @@ import processMessages from './utils/emitter';
 const app = express();
 
 // Middleware para parsing de JSON
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.post('/send-groups', upload.single('image'), async (req, res) => {
     const { pattern, message } = req.body;
@@ -58,7 +59,7 @@ app.post('/send-groups', upload.single('image'), async (req, res) => {
         //Buscar Grupos para disparo
         const arrGroupID = await getGroupsByPatternName(firstToken, pattern);
         
-        logger.info(`Qtd Groups: ${arrGroupID.length}`);
+        logger.info(`[QTD SESSIONS]: ${arrSessions.length}   --  X  --   [QTD GRUPOS]: ${arrGroupID.length}`);
 
         if (!arrGroupID.length){
           logger.warn(`Nenhuma grupo para regex ${pattern}`);
@@ -87,6 +88,7 @@ app.put('webhook/statuses', async (req, res) => {
   const { statuses, channel_id} = req.body;
   statuses.filter(row => row.status == 'delivered')
     .forEach(row => {
+      logger.info(`[DELIVERED] Mensagem ${row.id} entregue!`)
       setDelivered(row.id)
     }
   );
