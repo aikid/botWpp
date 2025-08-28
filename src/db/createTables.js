@@ -50,6 +50,14 @@ async function createTable() {
             SET updatedAt = CURRENT_TIMESTAMP
             WHERE id = OLD.id;
         END;
+        CREATE TRIGGER IF NOT EXISTS update_message_sentAt
+        AFTER UPDATE ON messages
+        FOR EACH ROW
+        BEGIN
+            UPDATE messages
+            SET sentAt = CURRENT_TIMESTAMP
+            WHERE id = OLD.id AND wasSent != OLD.wasSent;
+        END;
     `);
     await db.close();
     return { status: "success", msg: "Banco de dados criado com sucesso!" };
