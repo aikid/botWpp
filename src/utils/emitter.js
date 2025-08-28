@@ -18,7 +18,7 @@ const send = async (messages) => {
       try {
         const result = await sendMessage(msg.token, msg.groupId, msg.pathImage, msg.message);
 
-        if (result.success) {
+        if (!result.success) {
           await updateMessageStatus(msg.id, {
             sent: result.sent,
             sentId: result.id
