@@ -50,7 +50,7 @@ const send = async (messages) => {
     }
 }
 
-var timeout = 5000;
+let timeout = 5000;
 
 const processMessages = async() => {
 
